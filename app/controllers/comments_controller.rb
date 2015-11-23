@@ -16,6 +16,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+    @comment.article_id = @article.id
 
     if @comment.save
       redirect_to article_comments_path(@article)
@@ -42,7 +43,7 @@ class CommentsController < ApplicationController
   end
 
   def set_parent
-    @article = Article.find(params[:article_id]) if params[:article_id].present?
+    @article = Article.find(params[:article_id])
   end
 
   def comment_params
